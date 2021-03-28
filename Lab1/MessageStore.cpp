@@ -40,6 +40,7 @@ void MessageStore::add(Message &m) {
 
     // storing new msg
     messages[next_pos++] = m;
+    std::cout << "added msg with id: " << m.getId() << std::endl;
 }
 
 
@@ -70,6 +71,7 @@ bool MessageStore::remove(long id) {
         if(messages[i].getId() == id){
             // replacing with empty msg (specifications)
             messages[i] = Message();
+            std::cout << "removed msg with id: " << messages[i].getId() << std::endl;
             return true;
         }
 
@@ -96,7 +98,30 @@ std::tuple<int, int> MessageStore::stats() {
  * the minimum multiple of n
  */
 void MessageStore::compact() {
+    // index for copying
+    int non_empty = 0;
 
+    // temporary buffer
+    Message *tmp = new Message[dim]; // auto avoided on purpose
+
+    for(auto i = 0; i < next_pos - 1; ++i)
+        if(messages[i].getId() != -1)
+            tmp[non_empty++] = messages[i];
+
+    // deleting old array
+    delete[] messages;
+    messages = nullptr;
+
+    // creating new array to compact
+    dim = (non_empty/n) * n + (non_empty % n ? n : 0);
+    messages = new Message[dim];
+
+    // copying temporary buffer on new array
+    for(auto i = 0 ; i < non_empty; ++i)
+        messages[i] = tmp[i];
+
+    // setting next pos
+    next_pos = non_empty;
 }
 
 /**

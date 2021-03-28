@@ -34,7 +34,6 @@ Message::Message(const Message &other) {
         data = new (std::nothrow) char [size + 1];
         if(data != nullptr)
             *data = *other.data;
-
     } else
         data = nullptr;
 }
@@ -60,14 +59,6 @@ Message::~Message() {
   }
 }
 
-
-std::ostream & operator<< (std::ostream & out, const Message &m) {
-    std::string s ( m.getData ());
-    out <<" [id:" << m.getId () << "] [size:"
-        << m.getSize() <<"] [data:"
-        << s.substr(0 , 20) << "]" ;
-    return out ;
-}
 
 /**
  * @brief retrieves id
@@ -115,6 +106,26 @@ char *Message::mkMessage(int n) {
     return m;
 }
 
+
+/**
+ * overloaded << operator
+ * @param out
+ * @param m: msg to print
+ * @return
+ */
+std::ostream & operator<< (std::ostream & out, const Message &m) {
+    std::string s ( m.getData ());
+    out <<" [id:" << m.getId () << "] [size:"
+        << m.getSize() <<"] [data:"
+        << s.substr(0 , 20) << "]" ;
+    return out ;
+}
+
+/**
+ * overloaded = operator
+ * @param source : msg to assign
+ * @return
+ */
 Message &Message::operator=(const Message &source) {
     if (this != &source) {
         delete[] this->data;

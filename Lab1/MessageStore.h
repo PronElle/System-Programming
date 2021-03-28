@@ -17,7 +17,9 @@ class MessageStore {
     int n;  // mem increment
     int next_pos; // next free pos
 
+    // private members
     bool find(long id);
+    void resize();
 
 public:
     explicit MessageStore(int n);

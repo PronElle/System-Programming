@@ -7,11 +7,6 @@
 
 MessageStore::MessageStore(int _n): n(_n), dim(_n), next_pos(0){
     messages = new (std::nothrow) Message[n];
-
-    if(messages != nullptr){
-        // TODO: to be implemeneted
-    }
-
 }
 
 
@@ -33,34 +28,35 @@ void MessageStore::add(Message &m) {
     if(m.getId() == -1)
         return;
 
+    // if msg with given id already exists
     if(find(m.getId()))
         return;
 
+    // if no available space to store the new msg
     if(next_pos >= dim) {
         // reallocating memory
-        Message* tmp = nullptr;
-        tmp = messages;
-
-        messages = new (std::nothrow) Message [dim + n];
-        for(int i = 0; i < dim; ++i)
-            messages[i] = tmp[i];
-
-        dim += n;
-        delete[] tmp;
+       resize();
     }
 
-    messages[next_pos ++] = m;
+    // storing new msg
+    messages[next_pos++] = m;
 }
 
 
 /**
- *
+ * retrives message with given id, if
+ * it exists
  * @param id
- * @return
+ * @return msg
  */
 std::optional<Message> MessageStore::get(long id) {
-    // TODO: to be implemented
-    return std::optional<Message>();
+    if (id != -1) {
+        for (int i = 0; i < dim; i++)
+            if (messages[i].getId() == id)
+                return messages[i];
+    }
+
+    return std::nullopt;
 }
 
 /**
@@ -72,6 +68,7 @@ std::optional<Message> MessageStore::get(long id) {
 bool MessageStore::remove(long id) {
     for(int i = 0; i < next_pos - 1; ++i)
         if(messages[i].getId() == id){
+            // replacing with empty msg (specifications)
             messages[i] = Message();
             return true;
         }
@@ -99,7 +96,7 @@ std::tuple<int, int> MessageStore::stats() {
  * the minimum multiple of n
  */
 void MessageStore::compact() {
-    // TODO: to be implemented
+
 }
 
 /**
@@ -114,6 +111,37 @@ bool MessageStore::find(long id) {
             return true;
 
     return false;
+}
+
+/**
+ * resizes array of messages if a bigger
+ * one is needed, allocating "n" more cells
+ */
+void MessageStore::resize() {
+    // temporary buffer
+    Message *tmp = new Message[dim]; // auto avoided on purpose
+
+    // Copying all the messages
+    for (int i = 0; i < dim; i++)
+        tmp[i] = messages[i];
+
+    // deleting data from previous array
+    delete[] messages;
+    messages = nullptr;
+
+    // allocating a new array of Message with proper dimension
+    messages = new Message[dim + n];
+
+    // Copy all the values from temp buffer
+    for (int i = 0; i < dim; i++)
+        messages[i] = tmp[i];
+
+    // Deleting the temporary buffer
+    delete[] tmp;
+    tmp = nullptr;
+
+    // Updating the dim value
+    dim += n;
 }
 
 

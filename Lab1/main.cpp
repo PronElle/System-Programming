@@ -1,12 +1,20 @@
 #include <iostream>
 #include "Message.h"
+#include "MessageStore.h"
+#include "DurationLogger.h"
 
 int main() {
-    Message m1(10);
-    Message m2(20);
-    Message m3;
+    MessageStore ms(10);
 
-    std :: cout << m1 << std :: endl << m2 << std :: endl<< m3 << std :: endl ;
+    for(auto i = 0; i < 100; ++i){
+        Message m = Message(10*1024*1024);
+        ms.add(m);
+    }
+
+    for(auto i = 0; i < 100 ; i += 2)
+        ms.remove(i);
+
+
 
     return 0;
 }

@@ -45,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Message.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1700">
-              <caret line="118" column="23" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
+            <state relative-caret-position="442">
+              <caret line="26" column="15" lean-forward="true" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -123,7 +123,7 @@
   <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="17" />
     <option name="y" value="24" />
-    <option name="width" value="1125" />
+    <option name="width" value="1886" />
     <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -185,12 +185,12 @@
       <workItem from="1616587964165" duration="9155000" />
       <workItem from="1616612684674" duration="192000" />
       <workItem from="1616612977935" duration="408000" />
-      <workItem from="1616613410349" duration="30704000" />
+      <workItem from="1616613410349" duration="30967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40459000" />
+    <option name="totallyTimeSpent" value="40722000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -202,10 +202,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="17" y="24" width="1125" height="1039" extended-state="4" />
+    <frame x="17" y="24" width="1886" height="1039" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20186047" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11819172" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -216,7 +216,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49945533" weight="0.32934782" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info active="true" anchor="bottom" id="Messages" order="8" visible="true" weight="0.17934783" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.17934783" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49945533" weight="0.32934782" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50054467" side_tool="true" weight="0.32934782" />
       <window_info anchor="bottom" id="Version Control" order="11" />
@@ -269,16 +269,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MessageStore.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -313,10 +303,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Message.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="118" column="23" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
+        <state relative-caret-position="442">
+          <caret line="26" column="15" lean-forward="true" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
         </state>
       </provider>
     </entry>

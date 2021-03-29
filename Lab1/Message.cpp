@@ -35,6 +35,7 @@ Message::Message(const Message &other) {
         data = new (std::nothrow) char [size + 1];
         if(data != nullptr)
             std::memcpy(data, other.data, size);
+
     } else
         data = nullptr;
 }

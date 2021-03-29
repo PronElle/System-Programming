@@ -72,13 +72,13 @@ std::optional<Message> MessageStore::get(long id) {
  * @return true if message found and removed, false otherwise
  */
 bool MessageStore::remove(long id) {
-    for(int i = 0; i < next_pos - 1; ++i)
+    for(int i = 0; i < next_pos ; ++i)
         if(messages[i].getId() == id){
-            // replacing with empty msg (specifications)
-            messages[i] = Message();
             #ifdef DEBUG
             std::cout << "removed msg with id: " << messages[i].getId() << std::endl;
             #endif
+            // replacing with empty msg (specifications)
+            messages[i] = Message();
             return true;
         }
 
@@ -93,7 +93,7 @@ bool MessageStore::remove(long id) {
 std::tuple<int, int> MessageStore::stats() {
     int valid = 0;
 
-    for(int i = 0; i < next_pos - 1; ++i)
+    for(int i = 0; i < next_pos ; ++i)
         if(messages[i].getId() != -1)
             valid ++;
 
@@ -111,7 +111,7 @@ void MessageStore::compact() {
     // temporary buffer
     Message *tmp = new Message[dim]; // auto avoided on purpose
 
-    for(auto i = 0; i < next_pos - 1; ++i)
+    for(auto i = 0; i < next_pos ; ++i)
         if(messages[i].getId() != -1)
             tmp[non_empty++] = messages[i];
 
@@ -138,7 +138,7 @@ void MessageStore::compact() {
  * @return true if message exists, false otherwise
  */
 bool MessageStore::find(long id) {
-    for(int i = 0; i < next_pos - 1; ++i)
+    for(int i = 0; i < next_pos ; ++i)
         if(messages[i].getId() == id)
             return true;
 

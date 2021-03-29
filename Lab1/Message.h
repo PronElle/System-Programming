@@ -8,7 +8,6 @@
 #include <iostream>
 
 class Message {
-
     long id ;
     char * data ;
     int size ;

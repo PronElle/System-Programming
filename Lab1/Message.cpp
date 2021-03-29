@@ -2,6 +2,7 @@
 // Created by elle on 24/03/21.
 //
 
+#include <cstring>
 #include "Message.h"
 
 long Message::curr_id = 0;
@@ -33,8 +34,7 @@ Message::Message(const Message &other) {
     if(other.data != nullptr){
         data = new (std::nothrow) char [size + 1];
         if(data != nullptr)
-            *data = *other.data;
-
+            std::memcpy(data, other.data, size);
     } else
         data = nullptr;
 }
@@ -60,14 +60,6 @@ Message::~Message() {
   }
 }
 
-
-std::ostream & operator<< (std::ostream & out, const Message &m) {
-    std::string s ( m.getData ());
-    out <<" [id:" << m.getId () << "] [size:"
-        << m.getSize() <<"] [data:"
-        << s.substr(0 , 20) << "]" ;
-    return out ;
-}
 
 /**
  * @brief retrieves id
@@ -115,16 +107,34 @@ char *Message::mkMessage(int n) {
     return m;
 }
 
+
+/**
+ * overloaded << operator
+ * @param out
+ * @param m: msg to print
+ * @return
+ */
+std::ostream & operator<< (std::ostream & out, const Message &m) {
+    std::string s ( m.getData ());
+    out <<" [id:" << m.getId () << "] [size:"
+        << m.getSize() <<"] [data:"
+        << s.substr(0 , 20) << "]" ;
+    return out ;
+}
+
+/**
+ * overloaded = operator
+ * @param source : msg to assign
+ * @return
+ */
 Message &Message::operator=(const Message &source) {
     if (this != &source) {
         delete[] this->data;
         this->data = nullptr;
         this->id = source.id;
         this->size = source.size;
-        this->data = new (std::nothrow) char[this->size];
-
-        if(this->data != nullptr)
-            *data = *source.data;
+        this->data = new char[this->size];
+        std::memcpy(data, source.data, size);
     }
 
     return *this;

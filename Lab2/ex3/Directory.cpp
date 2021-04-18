@@ -9,8 +9,8 @@ std::shared_ptr<Directory> Directory::root; // dir's root
 Directory::Directory(const std::string &name) : Base(name) {}
 
 /**
- *
- * @return
+ * retrieves the type of instance (File/Dir)
+ * @return type
  */
 int Directory::mType() const {
     return DIR_t;
@@ -30,8 +30,8 @@ std::shared_ptr<Directory> Directory::makeDirectory(const std::string &_name, st
 }
 
 /**
- *
- * @param indent
+ * Unix-like "ls" command
+ * @param indentation level
  */
 void Directory::ls(int indent) const {
     std::string indent_str;
@@ -44,9 +44,10 @@ void Directory::ls(int indent) const {
 }
 
 /**
- *
+ * Creates a new object of type Directory
+ * and adds it to the current dir
  * @param name
- * @return
+ * @return new dir or empty shared ptr
  */
 std::shared_ptr<Directory> Directory::addDirectory(const std::string &_name) {
     if(children.count(_name) > 0 || _name == ".." || _name == ".")
@@ -58,8 +59,9 @@ std::shared_ptr<Directory> Directory::addDirectory(const std::string &_name) {
 }
 
 /**
- *
- * @return
+ * Creates root of dir's tree or retrives it if
+ * already present
+ * @return root
  */
 std::shared_ptr<Directory> Directory::getRoot() {
     if(root == nullptr){
@@ -72,10 +74,11 @@ std::shared_ptr<Directory> Directory::getRoot() {
 }
 
 /**
- *
- * @param nome
+ * Creates a new object of type File
+ * and adds it to the current dir
+ * @param _name
  * @param size
- * @return
+ * @return new file
  */
 std::shared_ptr<File> Directory::addFile(const std::string &_name, uintmax_t size) {
     // if already present
@@ -89,8 +92,9 @@ std::shared_ptr<File> Directory::addFile(const std::string &_name, uintmax_t siz
 }
 
 /**
- *
- * @param name
+ * Retrives a smart pointer of Dir/File with appropriate name
+ * under current directory
+ * @param _name
  * @return
  */
 std::shared_ptr<Base> Directory::get(const std::string &_name) {
@@ -100,16 +104,16 @@ std::shared_ptr<Base> Directory::get(const std::string &_name) {
 }
 
 /**
- * retrieves dir of given name
- * @param name
- * @return
+ * retrieves dir of given name employing "get" method
+ * @param _name
+ * @return dir
  */
 std::shared_ptr<Directory> Directory::getDir(const std::string &_name) {
     return std::dynamic_pointer_cast<Directory>(get(_name));}
 
 /**
  * retrieves file of given name
- * @param name
+ * @param _name
  * @return file
  */
 std::shared_ptr<File> Directory::getFile(const std::string &_name) {

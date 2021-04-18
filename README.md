@@ -14,7 +14,7 @@ This repository contains the API part laboratories of the "Programmazione di Sis
 
 ## Index
 * [Lab1](Lab1)
-* Lab2 
+* [Lab2](Lab2) 
 * Lab3
 * Lab4 
 * Lab5 

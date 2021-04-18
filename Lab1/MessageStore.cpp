@@ -30,13 +30,13 @@ void MessageStore::add(Message &m) {
         return;
 
     // if msg with given id already exists
-    if(find(m.getId()))
+    if(find(m.getId()) >= 0)
         return;
 
     // if no available space to store the new msg
     if(next_pos >= dim) {
         // reallocating memory
-       resize();
+       resize(dim + n);
     }
 
     // storing new msg
@@ -45,7 +45,6 @@ void MessageStore::add(Message &m) {
 #ifdef DEBUG
     std::cout << "added msg with id: " << m.getId() << std::endl;
 #endif
-
 }
 
 
@@ -56,13 +55,12 @@ void MessageStore::add(Message &m) {
  * @return msg
  */
 std::optional<Message> MessageStore::get(long id) {
-    if (id != -1) {
-        for (int i = 0; i < dim; i++)
-            if (messages[i].getId() == id)
-                return messages[i];
-    }
+    int pos = find(id);
 
-    return std::nullopt;
+    if(pos >= 0)
+        return messages[pos];
+    else
+        return std::nullopt;
 }
 
 /**
@@ -72,15 +70,16 @@ std::optional<Message> MessageStore::get(long id) {
  * @return true if message found and removed, false otherwise
  */
 bool MessageStore::remove(long id) {
-    for(int i = 0; i < next_pos - 1; ++i)
-        if(messages[i].getId() == id){
-            // replacing with empty msg (specifications)
-            messages[i] = Message();
-            #ifdef DEBUG
-            std::cout << "removed msg with id: " << messages[i].getId() << std::endl;
-            #endif
-            return true;
-        }
+    int pos = find(id);
+
+    if(pos >= 0){
+        #ifdef DEBUG
+        std::cout << "removed msg with id: " << id << std::endl;
+        #endif
+        // replacing with empty msg (specifications)
+        messages[pos] = Message();
+        return true;
+    }
 
     return false;
 }
@@ -93,7 +92,7 @@ bool MessageStore::remove(long id) {
 std::tuple<int, int> MessageStore::stats() {
     int valid = 0;
 
-    for(int i = 0; i < next_pos - 1; ++i)
+    for(int i = 0; i < next_pos ; ++i)
         if(messages[i].getId() != -1)
             valid ++;
 
@@ -105,75 +104,54 @@ std::tuple<int, int> MessageStore::stats() {
  * the minimum multiple of n
  */
 void MessageStore::compact() {
-    // index for copying
     int non_empty = 0;
+    for(int i=0; i<dim; i++){
+        non_empty += messages[i].getId() >=0 ? 1 : 0;
+    }
 
-    // temporary buffer
-    Message *tmp = new Message[dim]; // auto avoided on purpose
-
-    for(auto i = 0; i < next_pos - 1; ++i)
-        if(messages[i].getId() != -1)
-            tmp[non_empty++] = messages[i];
-
-    // deleting old array
-    delete[] messages;
-    messages = nullptr;
-
-    // creating new array to compact
-    dim = (non_empty/n) * n + (non_empty % n ? n : 0);
-    messages = new Message[dim];
-
-    // copying temporary buffer on new array
-    for(auto i = 0 ; i < non_empty; ++i)
-        messages[i] = tmp[i];
-
-    // setting next pos
-    next_pos = non_empty;
+    int new_dim = non_empty % n == 0 ? non_empty : (1 + non_empty/n) * n;
+    resize(new_dim);
 }
 
 /**
  * detects if a message of given id exists in
- * the message array
+ * the message array and retrieves its index
  * @param id
- * @return true if message exists, false otherwise
+ * @return index if message exists, -1 otherwise
  */
-bool MessageStore::find(long id) {
-    for(int i = 0; i < next_pos - 1; ++i)
+int MessageStore::find(long id) {
+    for(int i = 0; i < next_pos ; ++i)
         if(messages[i].getId() == id)
-            return true;
+            return i;
 
-    return false;
+    return -1;
 }
 
 /**
- * resizes array of messages if a bigger
- * one is needed, allocating "n" more cells
- */
-void MessageStore::resize() {
+ * resizes array of messages allocating a new one
+ * of size "size"
+ * @param size : requested new size
+ * */
+void MessageStore::resize(int size) {
     // temporary buffer
-    Message *tmp = new Message[dim]; // auto avoided on purpose
+    Message *new_msgs = new Message[size]; // auto avoided on purpose
 
-    // Copying all the messages
+    // Copying all VALID messages
+    int valid = 0;
     for (int i = 0; i < dim; i++)
-        tmp[i] = messages[i];
+        if(messages[i].getId() != -1 )
+            new_msgs[valid++] = messages[i];
 
     // deleting data from previous array
     delete[] messages;
-    messages = nullptr;
 
     // allocating a new array of Message with proper dimension
-    messages = new Message[dim + n];
+    messages = new_msgs;
 
-    // Copy all the values from temp buffer
-    for (int i = 0; i < dim; i++)
-        messages[i] = tmp[i];
-
-    // Deleting the temporary buffer
-    delete[] tmp;
-    tmp = nullptr;
-
-    // Updating the dim value
-    dim += n;
+    // Updating dim according to new size
+    // and next free position according to current occupation
+    dim = size;
+    next_pos = valid;
 }
 
 

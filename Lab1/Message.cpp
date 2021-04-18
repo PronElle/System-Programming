@@ -35,6 +35,7 @@ Message::Message(const Message &other) {
         data = new (std::nothrow) char [size + 1];
         if(data != nullptr)
             std::memcpy(data, other.data, size);
+
     } else
         data = nullptr;
 }
@@ -135,6 +136,19 @@ Message &Message::operator=(const Message &source) {
         this->size = source.size;
         this->data = new char[this->size];
         std::memcpy(data, source.data, size);
+    }
+
+    return *this;
+}
+
+
+Message &Message::operator = (Message &&source)  {
+    if(this != &source){
+        delete[] this->data;
+        this->id = source.id;
+        this->size = source.size;
+        this->data = source.data;
+        source.data = nullptr;
     }
 
     return *this;

@@ -18,8 +18,8 @@ class MessageStore {
     int next_pos; // next free pos
 
     // private members
-    bool find(long id);
-    void resize();
+    int find(long id);
+    void resize(int size);
 
 public:
     explicit MessageStore(int n);

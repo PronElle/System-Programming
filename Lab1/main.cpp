@@ -1,11 +1,15 @@
 #include <iostream>
+
 #include "Message.h"
 #include "MessageStore.h"
 #include "DurationLogger.h"
 
+using namespace std;
+
 int main() {
     MessageStore ms(10);
 
+    DurationLogger dl("assign");
     // loading 100 messages of 10MB each
     for(auto i = 0; i < 100; ++i){
         Message m = Message(10*1024*1024);
@@ -32,3 +36,4 @@ int main() {
 
     return 0;
 }
+

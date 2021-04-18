@@ -33,6 +33,7 @@ public:
     /* operator overloads */
     friend std::ostream & operator << (std::ostream & out, const Message &m);
     Message & operator = (const Message &source);
+    Message & operator = ( Message && source);
 };
 
 

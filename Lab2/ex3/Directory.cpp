@@ -22,8 +22,11 @@ int Directory::mType() const {
  * @param parent
  * @return
  */
-std::shared_ptr<Directory> Directory::makeDirectory(std::string name, std::weak_ptr<Directory> parent) {
-    return std::shared_ptr<Directory>();
+std::shared_ptr<Directory> Directory::makeDirectory(const std::string &_name, std::weak_ptr<Directory> parent) {
+    auto dir = std::shared_ptr<Directory>(new Directory(_name));
+    dir->father = std::move(parent);
+    dir->_this = dir;
+    return dir;
 }
 
 /**
@@ -31,7 +34,13 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string name, std::weak_
  * @param indent
  */
 void Directory::ls(int indent) const {
+    std::string indent_str;
+    for(int i=0; i<indent; i++)
+        indent_str += "\t";
 
+    std::cout<<indent_str<<"[*] "<<getName()<<std::endl;
+    for(const auto & element: children)
+        element.second->ls(indent+1);
 }
 
 /**
@@ -39,8 +48,13 @@ void Directory::ls(int indent) const {
  * @param name
  * @return
  */
-std::shared_ptr<Directory> Directory::addDirectory(const std::string &name) {
-    return std::shared_ptr<Directory>();
+std::shared_ptr<Directory> Directory::addDirectory(const std::string &_name) {
+    if(children.count(_name) > 0 || _name == ".." || _name == ".")
+        return std::shared_ptr<Directory>();
+
+    auto dir = makeDirectory(_name, _this);
+    children[_name] = dir;
+    return dir;
 }
 
 /**
@@ -63,8 +77,15 @@ std::shared_ptr<Directory> Directory::getRoot() {
  * @param size
  * @return
  */
-std::shared_ptr<File> Directory::addFile(const std::string &nome, uintmax_t size) {
-    return std::shared_ptr<File>();
+std::shared_ptr<File> Directory::addFile(const std::string &_name, uintmax_t size) {
+    // if already present
+    if(children.count(_name) > 0 || _name == ".." || _name == ".")
+        return std::shared_ptr<File>();
+
+    // creating new file
+    auto file = std::make_shared<File>(_name, size);
+    children[_name] = file;
+    return file;
 }
 
 /**
@@ -72,10 +93,10 @@ std::shared_ptr<File> Directory::addFile(const std::string &nome, uintmax_t size
  * @param name
  * @return
  */
-std::shared_ptr<Base> Directory::get(const std::string &name) {
-    return name == ".." ?
-           father.lock() : name == "." ?
-           _this.lock()  : children.find(name)->second;
+std::shared_ptr<Base> Directory::get(const std::string &_name) {
+    return _name == ".." ?
+           father.lock() : _name == "." ?
+           _this.lock()  : children.find(_name)->second;
 }
 
 /**
@@ -83,22 +104,22 @@ std::shared_ptr<Base> Directory::get(const std::string &name) {
  * @param name
  * @return
  */
-std::shared_ptr<Directory> Directory::getDir(const std::string &name) {
-    return std::dynamic_pointer_cast<Directory>(get(name));}
+std::shared_ptr<Directory> Directory::getDir(const std::string &_name) {
+    return std::dynamic_pointer_cast<Directory>(get(_name));}
 
 /**
  * retrieves file of given name
  * @param name
  * @return file
  */
-std::shared_ptr<File> Directory::getFile(const std::string &name) {
-    return std::dynamic_pointer_cast<File>(get(name));}
+std::shared_ptr<File> Directory::getFile(const std::string &_name) {
+    return std::dynamic_pointer_cast<File>(get(_name));}
 
 /**
  * deletes children of given name
  * @param name
  * @return true if success, false otherwise
  */
-bool Directory::remove(const std::string &name) {
-    return children.erase(name);
+bool Directory::remove(const std::string &_name) {
+    return children.erase(_name);
 }

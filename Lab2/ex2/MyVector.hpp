@@ -147,7 +147,7 @@ void MyVector<T>::push_back(T val)  {
 }
 
 /**
- *
+ * removes top item
  * @tparam T
  */
 template<class T>
@@ -187,7 +187,17 @@ T &MyVector<T>::operator[](unsigned int index) {
  */
 template<class T>
 MyVector<T> &MyVector<T>::operator=(const MyVector<T> &v)  {
-    // TODO: to be implemented
+    if(this != &v){
+        delete[] buf;
+        _size = v._size;
+        _capacity = v._capacity;
+        buf = new T[_capacity];
+
+        for(int i = 0 ; i < _capacity; ++i)
+            buf[i] = v.buf[i];
+    }
+
+    return *this;
 }
 
 /**
@@ -198,7 +208,18 @@ MyVector<T> &MyVector<T>::operator=(const MyVector<T> &v)  {
  */
 template<class T>
 MyVector<T> & MyVector<T>::operator=(MyVector<T> &&v) noexcept{
-    // TODO: to be implemented
+    if(this != &v){
+        delete[] buf;
+        _size = v._size;
+        _capacity = v._capacity;
+        buf = v.buf;
+
+        v._size = 0;
+        v._capacity = 0;
+        v.buf = nullptr;
+    }
+
+    return *this;
 }
 
 /**

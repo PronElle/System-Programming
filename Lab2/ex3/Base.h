@@ -6,7 +6,8 @@
 #define EX2_BASE_H
 
 #include <string>
-#include "globals.h"
+
+enum{FILE_t, DIR_t};
 
 class Base {
     std::string name;

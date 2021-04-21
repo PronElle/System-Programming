@@ -21,6 +21,7 @@ int main() {
     std::cout << "\nnew vector copying v\n";
     MyVector<int> v2(v);
     v2.push_back(15);
+    v2.push_back(99);
     for(int i = 0; i < v2.size(); ++i)
         std::cout << v2[i] << " ";
     return 0;

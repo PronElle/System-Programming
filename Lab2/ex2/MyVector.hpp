@@ -23,7 +23,7 @@ public:
     ~MyVector();
 
     unsigned int size() const;
-    void push_back(T  val) ;
+    void push_back(const T  &val) ;
     void pop_back();
     void clear();
     T & front();
@@ -126,7 +126,7 @@ unsigned int MyVector<T>::size() const {
  * @param val to be pushed
  */
 template<class T>
-void MyVector<T>::push_back(T val)  {
+void MyVector<T>::push_back(const T &val)  {
   if(_size == _capacity){
       // reallocating
       _capacity ++; // as requested
@@ -162,7 +162,7 @@ void MyVector<T>::pop_back() {
  */
 template<class T>
 void MyVector<T>::clear() {
- // TODO: to be implemented
+  _size = 0;
 }
 
 /**

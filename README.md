@@ -1,7 +1,7 @@
 # System-Programming
 
 <p align="center">
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/Ny6wg11/polito-logo-new.png"></a>
+<a href="https://imgbb.com/"><img src="https://www.politocomunica.polito.it/var/politocomunica/storage/images/media/images/marchio_e_logotipo_politecnico_di_torino/55127-3-ita-IT/marchio_e_logotipo_politecnico_di_torino_full.png"></a>
 </p> 
 
 <p align="center">
@@ -15,7 +15,7 @@ This repository contains the API part laboratories of the "Programmazione di Sis
 ## Index
 * Lab1: [MessageStore](Lab1)
 * Lab2:
-  - [MyVector](Lab2/ex2)
+  - [Custom STL Vector (no Iterators)](Lab2/ex2)
   - [Simple File System](Lab2/ex3) 
 * Lab3
 * Lab4 

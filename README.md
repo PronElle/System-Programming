@@ -15,8 +15,18 @@ This repository contains the API part laboratories of the "Programmazione di Sis
 ## Index
 * Lab1: [MessageStore](Lab1)
 * Lab2:
-  - [Custom STL Vector (no Iterators)](Lab2/ex2)
+  - [Custom STL Vector](Lab2/ex2)
+    - templates
+    - raw pointers
+    - no custom iterators
   - [Simple File System](Lab2/ex3) 
 * Lab3
+  - [Custom STL Vector](Lab3/ex1)
+    - templates
+    - raw pointers
+    - iterators
+  - [STL-like matrix](Lab3/ex2)
+    - templates
+    - smart pointers
 * Lab4 
 * Lab5 

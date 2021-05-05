@@ -9,15 +9,15 @@
 #include <iostream>
 #include <memory>
 
-template<typename T, typename  R>
+template<typename T>
 class Row{
     std::unique_ptr<T[]> _ptr;
 
 public:
-    explicit Row(R n): _ptr(new T[n]) { };
+    explicit Row(const unsigned int &n): _ptr(new T[n]) { };
     Row(): _ptr(nullptr) { };
 
-    T & operator[](const T &index) const {
+    T & operator[](const unsigned int &index) const {
         return _ptr[index];
     }
 
@@ -35,8 +35,8 @@ public:
     }
 };
 
-template <typename T, typename R>
-std::ostream & operator<<(std::ostream &out, const Row<T, R> &r) {
+template <typename T>
+std::ostream & operator<<(std::ostream &out, const Row<T> &r) {
     out << r[0];
     return out;
 }

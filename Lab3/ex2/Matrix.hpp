@@ -12,7 +12,7 @@ template <typename T, typename R>
 class Matrix {
 public:
     Matrix(R _rows, R _cols);
-    Row<T, R>& operator[](R i) const;
+    Row<T, R>& operator[](R index) const;
     R getRows() const;
     R getCols() const;
 private:
@@ -44,8 +44,8 @@ std::ostream & operator<<(std::ostream &out, const Matrix<T, R> &mat) {
 }
 
 template <typename T, typename R>
-Row<T, R> & Matrix<T, R>::operator[](R i) const {
-    return mat[i];
+Row<T, R> & Matrix<T, R>::operator[](R index) const {
+    return mat[index];
 }
 
 template<typename T, typename R>

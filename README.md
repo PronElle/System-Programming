@@ -7,10 +7,10 @@
 <p align="center">
  <img alt="C++" src="https://img.shields.io/badge/cmake-v3.0.0-green"/>
  <img alt="developement" src="https://img.shields.io/badge/C++-11 | 14 | 17 | 20-blue.svg?style=flat&logo=c%2B%2B"/> 
- 
+
 </p>
 
-This repository contains the API part laboratories of the "Programmazione di Sistema" (System Programming) course at PoliTO
+This repository contains the OS API part laboratories of the "Programmazione di Sistema" (System Programming) class at PoliTO
 
 ## Index
 * Lab1: [MessageStore](Lab1)
@@ -28,5 +28,11 @@ This repository contains the API part laboratories of the "Programmazione di Sis
   - [STL-like matrix](Lab3/ex2)
     - templates
     - smart pointers
-* Lab4 
-* Lab5 
+* Lab4 : map-reduce pattern
+* Lab5
+  - [custom lock_guard](Lab5/mylockguard.h)
+  - [CountingSemaphore](Lab5/CountingSemaphore.h)
+* Lab6
+  - [custom packaged_task](Lab6/myptask.h)
+  - [thread pool](Lab6/threadpool.h)
+  - [dynamic thread pool](Lab6/dynamic_pool.h)

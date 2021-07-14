@@ -1,3 +1,0 @@
-/home/elle/CLionProjects/system-programming/exams/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/elle/CLionProjects/system-programming/exams/cmake-build-debug/CMakeFiles/exams.dir
-/home/elle/CLionProjects/system-programming/exams/cmake-build-debug/CMakeFiles/edit_cache.dir
